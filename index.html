@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SHOP - Main</title>
+    <link rel="stylesheet" href="style1.css" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+   <div class="nav-bar">
+      <a style="text-decoration: none; color: inherit;" href="index.html">الرئيسية</a>
+      <a style="text-decoration: none; color: inherit;" href="index2.html">منتجاتنا</a>
+      <a style="text-decoration: none; color: inherit;" href="#locations">فروعنا</a>
+      <a style="text-decoration: none; color: inherit;" href="#contact">تواصل معنا</a>
+    <div class="cart-icon">
+      <button id="cart-toggle" type="button" aria-label="Open shopping cart">
+        <img src="shopping-cart-2-line(1).png" alt="Shopping cart icon" />
+        <span class="cart-count">0</span>
+      </button>
+    </div>
+   </div>
+
+
+   <div class="cart">
+      <h2 class="cart-header">السلة</h2>
+      <div class="cart-cont"></div>
+
+      <div class="total">
+        <div class="total-title">الإجمالي</div>
+        <div class="total-price">0 جنيه</div>
+        <button id="purchase-btn" type="button">الدفع</button>
+      </div>
+
+      <button class="close" type="button" aria-label="Close cart">
+        <img src="close-large-line.png" class="close-icon" alt="Close cart" />
+      </button>
+
+<div id="checkout-modal" class="checkout-modal">
+
+    <div class="checkout-box">
+
+        <h2>إتمام الطلب</h2>
+
+        <input
+            type="text"
+            id="customer-name"
+            placeholder="الاسم">
+
+        <input
+            type="tel"
+            id="customer-phone"
+            placeholder="رقم الهاتف">
+
+        <textarea
+            id="customer-address"
+            placeholder="العنوان"></textarea>
+
+        <textarea
+            id="customer-notes"
+            placeholder="ملاحظات (اختياري)"></textarea>
+
+        <div class="checkout-buttons">
+            <button id="cancel-order">إلغاء</button>
+            <button id="send-order">إرسال الطلب</button>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+    </div>
+<br/>
+<br/>
+<br/>
+    <div class="header">
+      <img
+        src="images.jpg"
+        alt="Colorful logo with Arabic text on a blue rounded shape above green grass and sky, conveying a cheerful brand identity"
+        height="250"
+        width="250"
+      />
+      <br/>
+      <h1>   SHOP  </h1>
+      <h3>فريش كل يوم</h3>
+    </div>
+    <br/>
+<br/>
+
+<section class="carousel-wrapper">
+    <button class="carousel-btn left" onclick="scrollCarousel(-1)">&#10095</button>
+
+    <div class="carousel" id="carousel">
+        <img src="1600w-gT4ppnMCjkM.jpg" alt="">
+        <img src="1600w-gT4ppnMCjkM.jpg" alt="">
+        <img src="1600w-gT4ppnMCjkM.jpg" alt="">
+        <img src="1600w-gT4ppnMCjkM.jpg" alt="">
+        <img src="1600w-gT4ppnMCjkM.jpg" alt="">
+    </div>
+
+    <button class="carousel-btn right" onclick="scrollCarousel(1)">&#10094;</button>
+</section>
+
+    <div class="search-box">
+      <input id="product-search" type="text" placeholder="ابحث عن منتج..." aria-label="Search products" />
+      <div id="search-help" class="search-help">اكتب اسم المنتج مثل: حليب، بيض، خبز</div>
+    </div>
+
+    <figure class = "adva">
+      <img src ="daba2cc4-88e4-4b87-b8ce-8e4469cc6d8f.png" height="100" alt="Advantages of Alban Asal products" />  
+      <figcaption >توصيل</figcaption>
+
+      <img src="9bccda29-853c-4559-b8ef-0dcbec52fc50.png" height="100" alt="Advantages of Alban Asal products" />
+    <figcaption>منتجات عضوية</figcaption>
+    
+
+    <img src="clock.png" height="100" alt="Advantages of Alban Asal products" />
+    <figcaption>طازجة يوميًا</figcaption>
+</figure>
+
+
+    <h1 style="text-align: center;">منتجاتنا العضوية</h1>
+      <br/>
+
+    <div class="items-organic">
+      <div class="item" data-name="حليب ألبان" data-price-id="milk_kg" data-price="44" data-custom="kg">
+        <img
+          src="Glass-and-bottle-of-milk-fe0997a.jpg"
+          height="100"
+          alt="Fresh milk in a carton"
+        />
+        <h2>حليب ألبان (كيلو)</h2>
+        <p>حليب طازج ودسم، مثالي للفطور والطبخ.</p>
+        <p class="price">السعر: 44 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+       <div class="item" data-name="حليب ألبان" data-price-id="milk_half_kg" data-price="44" data-custom="kg">
+        <img
+          src="Glass-and-bottle-of-milk-fe0997a.jpg"
+          height="100"
+          alt="Fresh milk in a carton"
+        />
+        <h2>حليب ألبان (نصف كيلو)</h2>
+        <p>حليب طازج ودسم، مثالي للفطور والطبخ.</p>
+        <p class="price">السعر: 22 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="زبادي" data-price-id="yogurt_half_kg" data-price="20">
+        <img src="images.jpg" height="100" alt="Fresh yogurt in a bowl" />
+        <h2>زبادي رائب (نصف كيلو)</h2>
+        <p>زبادي كريمي ولذيذ، مثالي للوجبات الخفيفة والطبخ.</p>
+        <p class="price">السعر: 20</p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="بيض" data-price-id="eggs" data-price="107" data-custom="egg-color">
+        <img
+        src="pexels-photo-3991967.jpeg"
+          height="100"
+          alt="Fresh eggs in a carton"
+        />
+        <h2>بيض</h2>
+        <p>بيض طازج وغني بالعناصر الغذائية, مثالي للطبخ والافطار.</p>
+        <p class="price">السعر:مخصص  </p>
+        <button  class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="جبن" data-price-id="cheese" data-price="">
+        <img
+          src="slices-of-emmental-cheese-on-blue-background-close-up-CSF018619.jpg"
+          height="100"
+          alt="Fresh cheese on a board"
+        />
+        <h2>جبن</h2>
+        <p>جبن لذيذ ومتعدد الاستخدامات, مثالي للوجبات الخفيفة والطبخ.</p>
+        <p class="price">السعر: </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="كريمة" data-price-id="cream" data-price="">
+        <img
+          src="whipped-cream-with-whisk-blue-background_295303-2490.avif"
+          height="100"
+          alt="Fresh cream in a bowl"
+        />
+        <h2>كريمة</h2>
+        <p>كريمة غنية وكثيفة, مثالية للطبخ والحلويات.</p>
+        <p class="price">السعر: </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+    </div><br/>
+    <a href="Untitled-2.html#items-organic">عرض الكل >></a>
+    
+    <h1 style="text-align: center;">منتجاتنا المخبوزة</h1>
+<br/>
+    <div class="items-baked">
+      
+      <div class="item" data-name="كرواسون" data-price-id="croissant" data-price="20">
+        <img
+          src="freshly-baked-croissant-on-blue-background-delicious-pastry-foodgraphy-photo.jpg"
+          height="100"
+          alt="Fresh croissant on a plate"
+        />
+        <h2>كرواسون</h2>
+        <p>كرواسون طازج ومقرمش، مثالي للفطور والوجبات الخفيفة.</p>
+        <p class="price">السعر: 20 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="خبز" data-price-id="bread" data-price="12">
+        <img
+          src="one-whole-loaf-white-fresh-bread-sackcloth-blue-background_114579-45557.avif"
+          height="100"
+          alt="Fresh bread loaf on a cutting board"
+        />
+        <h2>خبز</h2>
+        <p>خبز طازج ولذيذ، مثالي للسندويشات والوجبات الجانبية.</p>
+        <p class="price">السعر: 12 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="انجلش كيك" data-price-id="english_cake" data-price="90">
+        <img
+          src="side-view-cake-with-raisins-rustic.jpg"
+          height="100"
+          alt="Fresh muffin on a plate"
+        />
+        <h2>انجلش كيك</h2>
+        <p>لذيذ ورطب، مثالي للوجبات الخفيفة والحلويات.</p>
+        <p class="price">السعر: 90 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="توست" data-price-id="toast" data-price="55">
+        <img src="Untitled.jpg" height="100" alt="Fresh toast on a plate" />
+        <h2>توست</h2>
+        <p>توست طازج ومقرمش، مثالي للفطور والوجبات الخفيفة.</p>
+        <p class="price">السعر: 55 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="بنكيس فطير" data-price-id="pancakes" data-price="35">
+        <img
+          src="homemade-pancakes-683x1024.jpg"
+          height="100"
+          alt="Fresh pancakes on a plate"
+        />
+        <h2>بنكيس فطير</h2>
+        <p>بنكيس لذيذ ورطب، مثالي للوجبات الخفيفة والحلويات.</p>
+        <p class="price">السعر: 35 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="مشبع" data-price-id="moshabaa" data-price="70">
+        <img
+          src="36638796_2023693424372170_8721695439792898048_n.jpg"
+          height="100"
+          alt="Fresh pastries on a plate"
+        />
+        <h2>مشبع</h2>
+        <p>مشبع لذيذ ومقرمش، مثالي للفطور والوجبات الخفيفة.</p>
+        <p class="price">السعر: 70 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="فايش" data-price-id="fayesh" data-price="70">
+        <img src="maxresdefault.jpg" height="100" />
+        <h2>فايش</h2>
+        <p>فايش لذيذ ورطب، مثالي للوجبات الخفيفة والحلويات.</p>
+        <p class="price">السعر: </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="بقسماط" data-price-id="boksmat" data-price="70">
+        <img src="gall-4BK0704101-1.webp" height="100" />
+        <h2>بقسماط</h2>
+        <p>بقسماط لذيذ ومقرمش، مثالي للفطور والوجبات الخفيفة.</p>
+        <p class="price">السعر: 70 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+
+      <div class="item" data-name="بيتزا رول" data-price-id="pizza_roll" data-price="80">
+        <img src="20251009162406-mini-20breakfast-20pizza.webp" height="100" />
+        <h2>بيتزا رول</h2>
+        <p>بيتزا فطور لذيذة ومشبعة، مثالية للفطور والوجبات الخفيفة.</p>
+        <p class="price">السعر: 80 </p>
+        <button class="add-to-cart">أضف إلى السلة</button>
+      </div>
+    </div>
+<br/>
+<a href="Untitled-2.html#items-baked">عرض الكل >></a>
+
+
+<h1 style="text-align: center;">منتجاتنا الحلوة</h1>
+<br/>
+
+      <div class="items-desserts">
+        <div class="item" data-name="تريليش" data-price-id="trileche" data-price="45">
+          <img
+            src="Cherry-Trifles-blog-landscape-5.jpg"
+            height="100"
+            alt="Trellis dessert"
+          />
+          <h2>تريليش</h2>
+          <p>حلوى Trellis لذيذة ومقرمشة، مثالية مع كوب شاي.</p>
+          <p class="price">السعر: </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+<div class="item" data-name="مولتن كيك" data-price-id="molten" data-price="">
+          <img
+            src="1382545880780.webp"
+            height="100"
+            alt="Molten"
+          />
+          <h2>مولتن كيك</h2>
+          <p>حلوى molten لذيذة طرية، مثالية مع كوب شاي.</p>
+          <p class="price">السعر: </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+
+        <div class="item" data-name="كيك عيد الميلاد" data-price-id="birthday_cake" data-price="">
+          <img
+            src="Vanilla-Birthday-Cake-18-1200x1480.jpg"
+            height="100"
+            alt="Birthday cake"
+          />
+          <h2>كيك عيد الميلاد</h2>
+          <p>كيك عيد الميلاد جميل واحتفالي، مثالي للمناسبات الخاصة.</p>
+          <p class="price">السعر: </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+        <div class="item" data-name="حليب مع أرز" data-price-id="rice_pudding" data-price="">
+          <img
+            src="How-to-make-rice-pudding-600x600.jpg"
+            height="100"
+            alt="Milk with rice"
+          />
+          <h2>حليب مع أرز</h2>
+          <p>مشروب الحليب مع الأرز كريمى ولذيذ، مثالي بعد الوجبات.</p>
+          <p class="price">السعر: </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+        <div class="item" data-name="آيس كريم" data-price-id="ice_cream" data-price="">
+          <img
+            src="double-scoop-blue-bubble-gum-600nw-2649427141.webp"
+            height="100"
+            alt="Ice cream"
+          />
+          <h2>آيس كريم</h2>
+          <p>آيس كريم بارد وحلو، مثالي للصيف والوجبات الخفيفة.</p>
+          <p class="price">السعر: </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+        <div class="item" data-name="باباظ فواكه" data-price-id="fruit_cups" data-price="35">
+          <img
+            src="fresh-cut-fruit-plastic-cup-blue-background-copyspace-150908998.webp"
+            height="100"
+            alt="Fruit cups"
+          />
+          <h2>باباظ فواكه</h2>
+          <p>كؤوس الفاكهة طازجة وخفيفة، مثالية للوجبات الصحية.</p>
+          <p class="price">السعر: 35 </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+        <div class="item" data-name="بودينج" data-price-id="pudding" data-price="25">
+          <img
+            src="chocolate-mousse-with-blueberries-blackberries-cup-coffee-dark-background_127032-3151.avif"
+            height="100"
+            alt="Pudding"
+          />
+          <h2>بودينج</h2>
+          <p>بودينغ كريمي ولذيذ، مثالي للتحلية بعد العشاء.</p>
+          <p class="price">السعر: 25 </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+        <div class="item" data-name="جيلي" data-price-id="jelly" data-price="20">
+          <img src="s3TrBO2Mcyp5XNDKZ4dk.jpg" height="100" alt="Jelly" />
+          <h2>جيلي</h2>
+          <p>جيلي ملون ومنعش، مثالي للوجبات الخفيفة والحفلات.</p>
+          <p class="price">السعر: 20 </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+        <div class="item" data-name="كاسترد" data-price-id="custard" data-price="25">
+          <img
+            src="homemade-vanilla-custard-blue-background_123827-28020.avif"
+            height="100"
+            alt="Custard"
+          />
+          <h2>كاسترد</h2>
+          <p>كاسترد ناعم وكريمي، مثالي للتحلية بعد العشاء.</p>
+          <p class="price">السعر: 25 </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+
+        <div class="item" data-name="تشيز كيك" data-price-id="cheesecake" data-price="45">
+          <img src="lemon-cheesecake-8.jpg" height="100" alt="Cheesecake" />
+          <h2>تشيز كيك</h2>
+          <p>تشيز كيك غني وكريمي، مثالي لمحبي الحلويات الفاخرة.</p>
+          <p class="price">السعر: 45 </p>
+          <button class="add-to-cart">أضف إلى السلة</button>
+        </div>
+      </div>
+    </div>
+<a href="Untitled-2.html#items-desserts">عرض الكل >></a>
+
+
+    <div class="our-locations">
+      <h2>فروعنا</h2>
+      <p>زورنَا في الأماكن التالية:</p>
+      
+<iframe
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB2NIWI3Tv9iDPrlnowr_0ZqZWoAQydKJU&q=%D8%A7%D9%84%D8%A8%D8%A7%D9%86%20%D8%B9%D8%B3%D9%84%2C%20Badr%2C%20Egypt&maptype=roadmap"
+  width="100%"
+  height="500"
+  style="border:0;"
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+      
+      <ul>
+        <li>مدينة بدر - مول مصر</li>
+        <li>مدينة نصر - 62ش حسن المامون</li>
+        <li>مدينة نصر - 10ش الورشه</li>
+        <li>مدينة نصر - 5ش الميثاق</li>
+        <li>النزهة-2ش الزهور</li>
+        <li>مساكن الشروق-4ش مسجد الرحمة</li>
+        <li>مساكن الشروق- 9ش احد</li>
+        <li>الماطة-خلف موقف جو باص</li>
+      </ul>
+    </div>
+
+    <div class="contact-us">
+      <h2>تواصل معنا</h2>
+      <a
+        href="https://www.facebook.com/p/%D8%A3%D9%84%D8%A8%D8%A7%D9%86-%D8%B9%D8%B3%D9%84-Alban-Asal-61580975697494/"
+      >
+        <img
+          src="ChatGPT Image Jun 1, 2026, 02_51_34 AM.png"
+          height="50"
+          alt="Alban Asal Facebook page"
+        />
+      </a>
+
+      <a href="https://wa.me/01080044133">
+        <img
+          src="ChatGPT Image Jun 1, 2026, 02_49_50 AM.png"
+          height="50"
+          alt="Chat on WhatsApp"
+        />
+      </a>
+
+      <a href="https://www.tiktok.com/@alban.asal">
+        <img src="ChatGPT Image Jun 1, 2026, 02_47_22 AM.png" height="50" alt="Alban Asal TikTok page" />
+      </a>
+    </div>
+    </div>
+
+    <div id="option-overlay" class="modal-overlay" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" id="option-modal">
+        <h3 id="modal-title">خيارات</h3>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="actions">
+          <button type="button" class="btn-cancel" id="modal-cancel">إلغاء</button>
+          <button type="button" class="btn-confirm" id="modal-confirm">تأكيد</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+
+  </body>
+</html>
