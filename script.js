@@ -43,7 +43,6 @@ const purchaseButton = document.getElementById("purchase-btn");
     milk_half_kg: 22,
     yogurt_half_kg: 20,
     eggs: "مخصص",
-    cheese: "",
     cream: 20,
     croissant: 20,
     bread: 12,
@@ -64,6 +63,7 @@ const purchaseButton = document.getElementById("purchase-btn");
     custard: 25,
     cheesecake: 45,
     molten:55,
+    cheese_rom:"مخصص",
   };
   const EGG_PRICES = {
     white: 100,
@@ -74,6 +74,12 @@ const purchaseButton = document.getElementById("purchase-btn");
     chocolate: 25,
     vanilla: 25,
     mint: 30
+  };
+  const CHEESE_WEIGHT_PRICES = {
+    eighth: 20,
+    quarter: 40,
+    half: 100,
+    kilo: 200,
   };
 
   function formatPrice(price) {
@@ -268,6 +274,25 @@ const purchaseButton = document.getElementById("purchase-btn");
     optionOverlay.setAttribute("aria-hidden", "false");
   }
 
+  function openCheeseOptionModal(productBox) {
+    if (!optionOverlay || !modalTitle || !modalBody) return;
+
+    pendingProduct = productBox;
+    modalTitle.textContent = "اختر وزن الجبن";
+    modalBody.innerHTML = `
+      <div class="option-list">
+        <label class="option-item"><input type="radio" name="cheese-weight-option" value="eighth" checked /> ثمن - ${CHEESE_WEIGHT_PRICES.eighth} جنيه</label>
+        <label class="option-item"><input type="radio" name="cheese-weight-option" value="quarter" /> ربع - ${CHEESE_WEIGHT_PRICES.quarter} جنيه</label>
+        <label class="option-item"><input type="radio" name="cheese-weight-option" value="half" /> نصف - ${CHEESE_WEIGHT_PRICES.half} جنيه</label>
+        <label class="option-item"><input type="radio" name="cheese-weight-option" value="kilo" /> كيلو - ${CHEESE_WEIGHT_PRICES.kilo} جنيه</label>
+      </div>
+    `;
+
+    optionOverlay.classList.add("show");
+    optionOverlay.setAttribute("aria-hidden", "false");
+  }
+
+
   searchInput?.addEventListener("input", (event) => {
     filterProducts(event.target.value);
   });
@@ -287,6 +312,17 @@ const purchaseButton = document.getElementById("purchase-btn");
       const optionValue = selectedOption?.value || "chocolate";
       const optionLabel = optionValue === "vanilla" ? "فانيليا" : optionValue === "mint" ? "نعناع" : "شوكولاتة";
       const optionPrice = ICE_CREAM_PRICES[optionValue] || ICE_CREAM_PRICES.chocolate;
+
+      addToCart(pendingProduct, cartContainer, cart, optionLabel, optionPrice);
+      resetOptionModal();
+      return;
+    }
+
+    if (pendingProduct.dataset.custom === "cheese_weight_prices") {
+      const selectedOption = modalBody?.querySelector('input[name="cheese-weight-option"]:checked');
+      const optionValue = selectedOption?.value || "eighth";
+      const optionLabel = optionValue === "quarter" ? "ربع" : optionValue === "half" ? "نصف" : optionValue === "kilo" ? "كيلو" : "ثمن";
+      const optionPrice = CHEESE_WEIGHT_PRICES[optionValue] || CHEESE_WEIGHT_PRICES.eighth;
 
       addToCart(pendingProduct, cartContainer, cart, optionLabel, optionPrice);
       resetOptionModal();
@@ -314,6 +350,11 @@ const purchaseButton = document.getElementById("purchase-btn");
 
       if (productBox.dataset.custom === "ice-cream-flavor") {
         openIceCreamOptionModal(productBox);
+        return;
+      }
+
+      if (productBox.dataset.custom === "cheese_weight_prices") {
+        openCheeseOptionModal(productBox);
         return;
       }
 
