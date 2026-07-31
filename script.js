@@ -57,7 +57,7 @@ const purchaseButton = document.getElementById("purchase-btn");
     trileche: 45,
     birthday_cake: "",
     rice_pudding: 20,
-    ice_cream: 25,
+    ice_cream: "مخصص",
     fruit_cups: 35,
     pudding: 25,
     jelly: 20,
@@ -69,6 +69,11 @@ const purchaseButton = document.getElementById("purchase-btn");
     white: 100,
     brown: 110,
     balady: 125
+  };
+  const ICE_CREAM_PRICES = {
+    chocolate: 25,
+    vanilla: 25,
+    mint: 30
   };
 
   function formatPrice(price) {
@@ -246,6 +251,23 @@ const purchaseButton = document.getElementById("purchase-btn");
     optionOverlay.setAttribute("aria-hidden", "false");
   }
 
+  function openIceCreamOptionModal(productBox) {
+    if (!optionOverlay || !modalTitle || !modalBody) return;
+
+    pendingProduct = productBox;
+    modalTitle.textContent = "اختر نكهة الآيس كريم";
+    modalBody.innerHTML = `
+      <div class="option-list">
+        <label class="option-item"><input type="radio" name="ice-cream-option" value="chocolate" checked /> شوكولاتة - ${ICE_CREAM_PRICES.chocolate} جنيه</label>
+        <label class="option-item"><input type="radio" name="ice-cream-option" value="vanilla" /> فانيليا - ${ICE_CREAM_PRICES.vanilla} جنيه</label>
+        <label class="option-item"><input type="radio" name="ice-cream-option" value="mint" /> نعناع - ${ICE_CREAM_PRICES.mint} جنيه</label>
+      </div>
+    `;
+
+    optionOverlay.classList.add("show");
+    optionOverlay.setAttribute("aria-hidden", "false");
+  }
+
   searchInput?.addEventListener("input", (event) => {
     filterProducts(event.target.value);
   });
@@ -259,6 +281,17 @@ const purchaseButton = document.getElementById("purchase-btn");
 
   modalConfirm?.addEventListener("click", () => {
     if (!pendingProduct) return;
+
+    if (pendingProduct.dataset.custom === "ice-cream-flavor") {
+      const selectedOption = modalBody?.querySelector('input[name="ice-cream-option"]:checked');
+      const optionValue = selectedOption?.value || "chocolate";
+      const optionLabel = optionValue === "vanilla" ? "فانيليا" : optionValue === "mint" ? "نعناع" : "شوكولاتة";
+      const optionPrice = ICE_CREAM_PRICES[optionValue] || ICE_CREAM_PRICES.chocolate;
+
+      addToCart(pendingProduct, cartContainer, cart, optionLabel, optionPrice);
+      resetOptionModal();
+      return;
+    }
 
     const selectedOption = modalBody?.querySelector('input[name="egg-option"]:checked');
     const optionValue = selectedOption?.value || "white";
@@ -276,6 +309,11 @@ const purchaseButton = document.getElementById("purchase-btn");
 
       if (productBox.dataset.custom === "egg-color") {
         openEggOptionModal(productBox);
+        return;
+      }
+
+      if (productBox.dataset.custom === "ice-cream-flavor") {
+        openIceCreamOptionModal(productBox);
         return;
       }
 
