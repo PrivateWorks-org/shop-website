@@ -632,3 +632,31 @@ a:hover:after {
   color: #fff;
   cursor: pointer;
 }
+
+.contact-us {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.contact-us > figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-us img {
+  max-width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.contact-us figcaption {
+  color: #333;
+  margin: 0;
+}

@@ -1,0 +1,92 @@
+.nav-bar {
+  background-color: #9dcae4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+.nav-bar a {
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 480px) {
+  .nav-bar {
+    justify-content: space-around;
+    gap: 12px;
+    padding: 10px 12px;
+  }
+
+  .nav-bar a {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 14px;
+  }
+}
+
+a {
+  position: relative;
+  color: #000;
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+a:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  left: 0;
+  bottom: -5px;
+  background-color: #000;
+  transition: width 0.3s ease;
+}
+
+a:hover:after {
+  width: 100%;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+  background-color: #9dcae4;
+  margin: 0;
+  padding: 20px;
+}
+
+.contact-us {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.contact-us > figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-us img {
+  max-width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.contact-us figcaption {
+  color: #333;
+  margin: 0;
+}
