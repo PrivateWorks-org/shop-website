@@ -20,7 +20,7 @@
       <a href="#contact">تواصل معنا</a>
     </div>
 
-    <div class="section">
+    <div class="section reveal">
       <div class="container">
         <div class="content-section">
           <div class="title">
@@ -45,7 +45,7 @@
       </div>
     </div>
 
-<div class="section">
+<div class="section reveal">
       <div class="container">
         <div class="content-section">
           <div class="title">
@@ -73,7 +73,7 @@
       </div>
     </div>
 
-        <div class="section">
+        <div class="section reveal">
       <div class="container">
         <div class="content-section">
           <div class="title">
@@ -94,8 +94,8 @@
       </div>
     </div>
 
-    <div class="contact-section">
-      <h2 id="contact">تواصل معنا</h2>
+    <div class="contact-section reveal">
+      <h2 id="contact" style="text-align: center;">تواصل معنا</h2>
       <div class="contact-us">
         <a href="https://www.facebook.com" aria-label="Facebook">
           <img
@@ -119,5 +119,25 @@
         </a>
       </div>
     </div>
+
+    <script>
+      const revealElements = document.querySelectorAll('.reveal');
+
+      if (revealElements.length) {
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+
+        revealElements.forEach((element) => revealObserver.observe(element));
+      }
+    </script>
   </body>
 </html>

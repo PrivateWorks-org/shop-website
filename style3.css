@@ -52,12 +52,21 @@ body {
   background-color: #9dcae4;
   margin: 0;
   padding: 20px 20px 40px;
+  overflow-x: hidden;
 }
 
 .section {
   width: 100%;
   background-color: #9dcae4;
-  padding: 20px 0 40px;
+  padding: 8px 0 16px;
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .container {
@@ -65,13 +74,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 24px;
-  margin: 100px auto 0;
-}
-
-.content-section {
-  flex: 1 1 420px;
-  min-width: 0;
+  gap: 16px;
+  margin: 40px auto 0;
 }
 
 .img-section {
@@ -122,8 +126,7 @@ body {
 }
 
 .contact-section {
-  padding: 20px 16px 40px;
-  text-align: center;
+  padding: 8px 16px 24px;
 }
 
 .contact-section h2 {
@@ -175,13 +178,13 @@ body {
   }
 
   .section {
-    padding: 12px 0 24px;
+    padding: 8px 0 12px;
   }
 
   .container {
     width: 100%;
-    margin-top: 90px;
-    gap: 16px;
+    margin-top: 28px;
+    gap: 12px;
   }
 
   .content-section,
