@@ -576,15 +576,54 @@ a:hover:after {
   right: 16px;
   width: 40px;
   height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   background: #157fd6;
   color: #fff;
-  font-size: 24px;
+  font-size: 20px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 1000;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.popup.show {
+  display: flex;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 90%;
+  max-height: 90vh;
+  width: 480px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(-20px) scale(0.95);
+  opacity: 0;
+  animation: popup-appear 240ms ease-out forwards;
+}
+
+@keyframes popup-appear {
+  from {
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .modal .option-list {
