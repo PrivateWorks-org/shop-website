@@ -10,20 +10,68 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalBody = document.getElementById("modal-body");
   const modalCancel = document.getElementById("modal-cancel");
   const modalConfirm = document.getElementById("modal-confirm");
-
-
   const purchaseBtn = document.getElementById("purchase-btn");
+  const checkoutModal = document.getElementById("checkout-modal");
+  const sendOrder = document.getElementById("send-order");
+  const cancelOrder = document.getElementById("cancel-order");
 
-const checkoutModal = document.getElementById("checkout-modal");
+  const products = document.querySelectorAll(".item");
+  const popup = document.getElementById("product-popup");
+  const popupImages = document.getElementById("popup-images");
+  const closePopup = document.getElementById("close-popup");
 
-const sendOrder = document.getElementById("send-order");
+  if (popup && popupImages) {
+    products.forEach((product) => {
+      const image = product.querySelector("img");
+      if (!image) return;
 
-const cancelOrder = document.getElementById("cancel-order");
-  
-  
+      const openPopup = () => {
+        let images = [];
+        const datasetImages = product.dataset.images || product.dataset.imges || "";
+
+        try {
+          const parsed = JSON.parse(datasetImages);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            images = parsed;
+          }
+        } catch (error) {
+          images = [];
+        }
+
+        if (images.length === 0) {
+          const src = image.getAttribute("src");
+          if (src) {
+            images = [src];
+          }
+        }
+
+        popupImages.innerHTML = images
+          .map((img) => `<img src="${img}" class="popup-image" alt="Product image">`)
+          .join("");
+
+        popup.style.display = "flex";
+      };
+
+      image.addEventListener("click", openPopup);
+      product.addEventListener("click", (event) => {
+        if (event.target === image) return;
+        if (!event.target.closest(".add-to-cart") && !event.target.closest("button")) {
+          openPopup();
+        }
+      });
+    });
+  }
+
+  if (closePopup && popup) {
+    closePopup.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+  }
+
+
   // ======== WhatsApp Checkout ========
-const purchaseButton = document.getElementById("purchase-btn");
-  
+  const purchaseButton = document.getElementById("purchase-btn");
+
   let pendingProduct = null;
 
   if (cartIcon && cart) {
@@ -62,18 +110,20 @@ const purchaseButton = document.getElementById("purchase-btn");
     jelly: 20,
     custard: 25,
     cheesecake: 45,
-    molten:55,
-    cheese_rom:"مخصص",
+    molten: 55,
+    cheese_rom: "مخصص",
+    lanshon: "مخصص",
+    birthday_cake: "مخصص",
   };
   const EGG_PRICES = {
     white: 100,
     brown: 110,
-    balady: 125
+    balady: 125,
   };
   const ICE_CREAM_PRICES = {
     chocolate: 25,
     vanilla: 25,
-    mint: 30
+    mint: 30,
   };
   const CHEESE_WEIGHT_PRICES = {
     eighth: 20,
@@ -81,9 +131,23 @@ const purchaseButton = document.getElementById("purchase-btn");
     half: 100,
     kilo: 200,
   };
+  const LANSHON_WEIGHT_PRICES = {
+    eighth: 20,
+    quarter: 45,
+    half: 160,
+    kilo: 250,
+  };
+  const CAKE_SIZE_PRICE = {
+    small: 320,
+    meidum: 390,
+    large: 600,
+    extra_large: 1000,
+  };
 
   function formatPrice(price) {
-    return price === "" || price === null || price === undefined ? "السعر: " : `السعر: ${price}`;
+    return price === "" || price === null || price === undefined
+      ? "السعر: "
+      : `السعر: ${price}`;
   }
 
   function syncProductPrices() {
@@ -104,12 +168,17 @@ const purchaseButton = document.getElementById("purchase-btn");
   function saveCartToStorage() {
     if (!cartContainer) return;
 
-    const items = Array.from(cartContainer.querySelectorAll(".cart-box")).map((box) => ({
-      title: box.querySelector(".cart-product-title")?.textContent?.trim() || "",
-      price: box.querySelector(".cart-price")?.textContent?.trim() || "",
-      quantity: box.querySelector(".cart-quantity-number")?.textContent?.trim() || "1",
-      image: box.querySelector(".cart-image")?.getAttribute("src") || ""
-    }));
+    const items = Array.from(cartContainer.querySelectorAll(".cart-box")).map(
+      (box) => ({
+        title:
+          box.querySelector(".cart-product-title")?.textContent?.trim() || "",
+        price: box.querySelector(".cart-price")?.textContent?.trim() || "",
+        quantity:
+          box.querySelector(".cart-quantity-number")?.textContent?.trim() ||
+          "1",
+        image: box.querySelector(".cart-image")?.getAttribute("src") || "",
+      }),
+    );
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }
@@ -198,7 +267,8 @@ const purchaseButton = document.getElementById("purchase-btn");
 
     cartItems.forEach((item) => {
       const priceText = item.querySelector(".cart-price")?.textContent || "";
-      const quantityText = item.querySelector(".cart-quantity-number")?.textContent || "1";
+      const quantityText =
+        item.querySelector(".cart-quantity-number")?.textContent || "1";
       const priceNumber = Number.parseFloat(priceText.replace(/[^0-9.]/g, ""));
       const quantity = Number.parseInt(quantityText, 10) || 1;
 
@@ -220,7 +290,12 @@ const purchaseButton = document.getElementById("purchase-btn");
     const normalizedQuery = query.trim().toLowerCase();
 
     items.forEach((item) => {
-      const text = (item.dataset.name || "") + " " + (item.querySelector("h2")?.textContent || "") + " " + (item.querySelector("p")?.textContent || "");
+      const text =
+        (item.dataset.name || "") +
+        " " +
+        (item.querySelector("h2")?.textContent || "") +
+        " " +
+        (item.querySelector("p")?.textContent || "");
       const haystack = text.toLowerCase();
       const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
       const matches = tokens.every((token) => haystack.includes(token));
@@ -292,6 +367,42 @@ const purchaseButton = document.getElementById("purchase-btn");
     optionOverlay.setAttribute("aria-hidden", "false");
   }
 
+  function openLanshonOptionModal(productBox) {
+    if (!optionOverlay || !modalTitle || !modalBody) return;
+
+    pendingProduct = productBox;
+    modalTitle.textContent = "اختر وزن اللانشون";
+    modalBody.innerHTML = `
+      <div class="option-list">
+        <label class="option-item"><input type="radio" name="lanshon-weight-option" value="eighth" checked /> ثمن - ${LANSHON_WEIGHT_PRICES.eighth} جنيه</label>
+        <label class="option-item"><input type="radio" name="lanshon-weight-option" value="quarter" /> ربع - ${LANSHON_WEIGHT_PRICES.quarter} جنيه</label>
+        <label class="option-item"><input type="radio" name="lanshon-weight-option" value="half" /> نصف - ${LANSHON_WEIGHT_PRICES.half} جنيه</label>
+        <label class="option-item"><input type="radio" name="lanshon-weight-option" value="kilo" /> كيلو - ${LANSHON_WEIGHT_PRICES.kilo} جنيه</label>
+      </div>
+    `;
+
+    optionOverlay.classList.add("show");
+    optionOverlay.setAttribute("aria-hidden", "false");
+  }
+
+  function openCakeOptionModal(productBox) {
+    if (!optionOverlay || !modalTitle || !modalBody) return;
+
+    pendingProduct = productBox;
+    modalTitle.textContent = "اختر حجم التورتة";
+    modalBody.innerHTML = `
+      <div class="option-list">
+        <label class="option-item"><input type="radio" name="cake-size-price" value="small" checked /> صغيرة 20*20 - ${CAKE_SIZE_PRICE.small} جنيه</label>
+        <label class="option-item"><input type="radio" name="cake-size-price" value="meidum" /> متوسطة 30*30 - ${CAKE_SIZE_PRICE.meidum} جنيه</label>
+        <label class="option-item"><input type="radio" name="cake-size-price" value="large" />كبيرة 40*40 - ${CAKE_SIZE_PRICE.large} جنيه</label>
+        <label class="option-item"><input type="radio" name="cake-size-price" value="extra_large" /> كبيرة جدا 50*50 - ${CAKE_SIZE_PRICE.extra_large} جنيه</label>
+        <p>ملاحظة : يمكنك كتابة تفاصيل التورتة (شكل / نكهة) عند قسم الملاحظات عند الطلب</p>
+      </div>
+    `;
+
+    optionOverlay.classList.add("show");
+    optionOverlay.setAttribute("aria-hidden", "false");
+  }
 
   searchInput?.addEventListener("input", (event) => {
     filterProducts(event.target.value);
@@ -308,10 +419,18 @@ const purchaseButton = document.getElementById("purchase-btn");
     if (!pendingProduct) return;
 
     if (pendingProduct.dataset.custom === "ice-cream-flavor") {
-      const selectedOption = modalBody?.querySelector('input[name="ice-cream-option"]:checked');
+      const selectedOption = modalBody?.querySelector(
+        'input[name="ice-cream-option"]:checked',
+      );
       const optionValue = selectedOption?.value || "chocolate";
-      const optionLabel = optionValue === "vanilla" ? "فانيليا" : optionValue === "mint" ? "نعناع" : "شوكولاتة";
-      const optionPrice = ICE_CREAM_PRICES[optionValue] || ICE_CREAM_PRICES.chocolate;
+      const optionLabel =
+        optionValue === "vanilla"
+          ? "فانيليا"
+          : optionValue === "mint"
+            ? "نعناع"
+            : "شوكولاتة";
+      const optionPrice =
+        ICE_CREAM_PRICES[optionValue] || ICE_CREAM_PRICES.chocolate;
 
       addToCart(pendingProduct, cartContainer, cart, optionLabel, optionPrice);
       resetOptionModal();
@@ -319,19 +438,78 @@ const purchaseButton = document.getElementById("purchase-btn");
     }
 
     if (pendingProduct.dataset.custom === "cheese_weight_prices") {
-      const selectedOption = modalBody?.querySelector('input[name="cheese-weight-option"]:checked');
+      const selectedOption = modalBody?.querySelector(
+        'input[name="cheese-weight-option"]:checked',
+      );
       const optionValue = selectedOption?.value || "eighth";
-      const optionLabel = optionValue === "quarter" ? "ربع" : optionValue === "half" ? "نصف" : optionValue === "kilo" ? "كيلو" : "ثمن";
-      const optionPrice = CHEESE_WEIGHT_PRICES[optionValue] || CHEESE_WEIGHT_PRICES.eighth;
+      const optionLabel =
+        optionValue === "quarter"
+          ? "ربع"
+          : optionValue === "half"
+            ? "نصف"
+            : optionValue === "kilo"
+              ? "كيلو"
+              : "ثمن";
+      const optionPrice =
+        CHEESE_WEIGHT_PRICES[optionValue] || CHEESE_WEIGHT_PRICES.eighth;
 
       addToCart(pendingProduct, cartContainer, cart, optionLabel, optionPrice);
       resetOptionModal();
       return;
     }
 
-    const selectedOption = modalBody?.querySelector('input[name="egg-option"]:checked');
+    if (pendingProduct.dataset.custom === "lanshon_weight_prices") {
+      const selectedOption = modalBody?.querySelector(
+        'input[name="lanshon-weight-option"]:checked',
+      );
+      const optionValue = selectedOption?.value || "eighth";
+      const optionLabel =
+        optionValue === "quarter"
+          ? "ربع"
+          : optionValue === "half"
+            ? "نصف"
+            : optionValue === "kilo"
+              ? "كيلو"
+              : "ثمن";
+      const optionPrice =
+        LANSHON_WEIGHT_PRICES[optionValue] || LANSHON_WEIGHT_PRICES.eighth;
+
+      addToCart(pendingProduct, cartContainer, cart, optionLabel, optionPrice);
+      resetOptionModal();
+      return;
+    }
+
+    if (pendingProduct.dataset.custom === "cake_size_price") {
+      const selectedOption = modalBody?.querySelector(
+        'input[name="cake-size-price"]:checked',
+      );
+      const optionValue = selectedOption?.value || "small";
+      const optionLabel =
+        optionValue === "meidum"
+          ? "وسط"
+          : optionValue === "large"
+            ? "كبيرة"
+            : optionValue === "extra_large"
+              ? "كبيرة جدا"
+              : "صغيرة";
+      const optionPrice =
+        CAKE_SIZE_PRICE[optionValue] || CAKE_SIZE_PRICE.eighth;
+
+      addToCart(pendingProduct, cartContainer, cart, optionLabel, optionPrice);
+      resetOptionModal();
+      return;
+    }
+
+    const selectedOption = modalBody?.querySelector(
+      'input[name="egg-option"]:checked',
+    );
     const optionValue = selectedOption?.value || "white";
-    const optionLabel = optionValue === "brown" ? "بني" : optionValue === "balady" ? "بلدي" : "أبيض";
+    const optionLabel =
+      optionValue === "brown"
+        ? "بني"
+        : optionValue === "balady"
+          ? "بلدي"
+          : "أبيض";
     const optionPrice = EGG_PRICES[optionValue] || EGG_PRICES.white;
 
     addToCart(pendingProduct, cartContainer, cart, optionLabel, optionPrice);
@@ -358,18 +536,38 @@ const purchaseButton = document.getElementById("purchase-btn");
         return;
       }
 
+      if (productBox.dataset.custom === "lanshon_weight_prices") {
+        openLanshonOptionModal(productBox);
+        return;
+      }
+
+      if (productBox.dataset.custom === "cake_size_price") {
+        openCakeOptionModal(productBox);
+        return;
+      }
+
       addToCart(productBox, cartContainer, cart);
     });
   });
 
-  function addToCart(productBox, cartContainer, cart, selectedOption = null, selectedPrice = null) {
+  function addToCart(
+    productBox,
+    cartContainer,
+    cart,
+    selectedOption = null,
+    selectedPrice = null,
+  ) {
     const productImage = productBox.querySelector("img")?.src || "";
     const productTitle = productBox.querySelector("h2")?.textContent || "منتج";
     const basePriceText = productBox.querySelector(".price")?.textContent || "";
-    const productPrice = selectedPrice !== null ? `السعر: ${selectedPrice}` : basePriceText;
-    const displayTitle = selectedOption ? `${productTitle} (${selectedOption})` : productTitle;
+    const productPrice =
+      selectedPrice !== null ? `السعر: ${selectedPrice}` : basePriceText;
+    const displayTitle = selectedOption
+      ? `${productTitle} (${selectedOption})`
+      : productTitle;
 
-    const existingItems = cartContainer?.querySelectorAll(".cart-product-title") || [];
+    const existingItems =
+      cartContainer?.querySelectorAll(".cart-product-title") || [];
     for (const existingTitle of existingItems) {
       if (existingTitle.textContent === displayTitle) {
         alert("تم إضافة هذا المنتج بالفعل إلى السلة.");
@@ -406,51 +604,39 @@ const purchaseButton = document.getElementById("purchase-btn");
   }
 
   purchaseBtn.addEventListener("click", () => {
+    if (cartContainer.children.length === 0) {
+      alert("السلة فارغة");
 
-    if(cartContainer.children.length === 0){
-
-        alert("السلة فارغة");
-
-        return;
+      return;
     }
 
     checkoutModal.classList.add("show");
+  });
 
-});
-
-cancelOrder.addEventListener("click", () => {
-
+  cancelOrder.addEventListener("click", () => {
     checkoutModal.classList.remove("show");
+  });
 
-});
+  const shopNumber = "+201117456729"; // Replace with your WhatsApp number
 
-const shopNumber = "+201117456729"; // Replace with your WhatsApp number
+  sendOrder.addEventListener("click", () => {
+    const name = document.getElementById("customer-name").value.trim();
 
-sendOrder.addEventListener("click",()=>{
+    const phone = document.getElementById("customer-phone").value.trim();
 
-    const name =
-        document.getElementById("customer-name").value.trim();
+    const address = document.getElementById("customer-address").value.trim();
 
-    const phone =
-        document.getElementById("customer-phone").value.trim();
+    const notes = document.getElementById("customer-notes").value.trim();
 
-    const address =
-        document.getElementById("customer-address").value.trim();
+    if (!name || !phone || !address) {
+      alert("يرجى تعبئة جميع البيانات");
 
-    const notes =
-        document.getElementById("customer-notes").value.trim();
-
-    if(!name || !phone || !address){
-
-        alert("يرجى تعبئة جميع البيانات");
-
-        return;
+      return;
     }
 
     let total = 0;
 
-    let message =
-` *طلب جديد*       
+    let message = ` *طلب جديد*       
 
 *أسم العميل :*
 ${name}
@@ -465,65 +651,51 @@ ${notes || "-"}
 
 `;
 
-    const cartItems =
-        cartContainer.querySelectorAll(".cart-box");
+    const cartItems = cartContainer.querySelectorAll(".cart-box");
 
-    cartItems.forEach((item,index)=>{
+    cartItems.forEach((item, index) => {
+      const title = item.querySelector(".cart-product-title").textContent;
 
-        const title =
-            item.querySelector(".cart-product-title").textContent;
+      const quantity = item.querySelector(".cart-quantity-number").textContent;
 
-        const quantity =
-            item.querySelector(".cart-quantity-number").textContent;
+      const price = parseFloat(
+        item.querySelector(".cart-price").textContent.replace(/[^0-9.]/g, ""),
+      );
 
-        const price =
-            parseFloat(
-                item.querySelector(".cart-price")
-                .textContent.replace(/[^0-9.]/g,"")
-            );
+      const subtotal = price * quantity;
 
-        const subtotal =
-            price * quantity;
+      total += subtotal;
 
-        total += subtotal;
-
-        message +=
-
-`${index+1}. ${title}
+      message += `${index + 1}. ${title}
 
 السعر: ${price} جنيه
 الكمية: ${quantity}
 الإجمالي: ${subtotal} جنيه
 
-`
-    message +=
-`
+`;
+      message += `
 -----------------------
-`
-;
+`;
     });
 
-    message +=
-`-----------------------
+    message += `-----------------------
 
  الإجمالي:
 ${total} جنيه`;
 
     window.open(
-        `https://wa.me/${shopNumber}?text=${encodeURIComponent(message)}`,
-        "_blank"
+      `https://wa.me/${shopNumber}?text=${encodeURIComponent(message)}`,
+      "_blank",
     );
-
-});
-
+  });
 });
 
 const carousel = document.getElementById("carousel");
 
-function scrollCarousel(direction){
-    const scrollAmount = 320; // Image width + gap
-    carousel.scrollBy({
-        left: direction * scrollAmount,
-        behavior: "smooth"
-    });
+function scrollCarousel(direction) {
+  const scrollAmount = 320; // Image width + gap
+  carousel.scrollBy({
+    left: direction * scrollAmount,
+    behavior: "smooth",
+  });
 }

@@ -21,8 +21,12 @@
 body {
   font-family: "Cairo", sans-serif;
   background-color: #9dcae4;
-  margin: 0;
-  padding: 20px;
+  margin: 10;
+  padding: 10px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .search-box {
@@ -216,6 +220,19 @@ body {
     padding: 8px 10px;
     font-size: 12px;
   }
+}
+
+.footer{
+  background-color: #9dcae4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  text-align: center;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
 }
 
 .cart-icon {
@@ -484,7 +501,7 @@ a:hover:after {
   align-items: center;
   z-index: 2000;
 }
-.modal-overlay.show {
+  .modal-overlay.show {
   display: flex;
 }
 .modal {
@@ -501,6 +518,50 @@ a:hover:after {
 }
 .modal .modal-body {
   margin-bottom: 12px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 90%;
+  width: 480px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+#popup-images {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.popup-image {
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+#close-popup {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 60px;
+  cursor: pointer;
+  color: #333;
+}
+
   text-align: right;
 }
 .modal .option-list {

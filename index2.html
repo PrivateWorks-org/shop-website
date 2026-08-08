@@ -18,7 +18,7 @@
       <a style="text-decoration: none; color: inherit;" href="index.html">الرئيسية</a>
       <a style="text-decoration: none; color: inherit;" href="index2.html">منتجاتنا</a>
       <a style="text-decoration: none; color: inherit;" href="index3.html">عن المحل</a>
-      <a style="text-decoration: none; color: inherit;" href="#contact">تواصل معنا</a>
+      <a style="text-decoration: none; color: inherit;" href="#contactUs">تواصل معنا</a>
     <div class="cart-icon">
       <button id="cart-toggle" type="button" aria-label="Open shopping cart">
         <img src="shopping-cart-2-line(1).png" alt="Shopping cart icon" />
@@ -105,7 +105,7 @@
       <br/>
 
     <div class="items-organic">
-      <div class="item" data-name="حليب ألبان" data-price-id="milk_kg" data-price="44" data-custom="kg">
+      <div class="item" data-name="حليب ألبان" data-price-id="milk_kg" data-price="44" data-custom="kg" data-images='["Glass-and-bottle-of-milk-fe0997a.jpg","Glass-and-bottle-of-milk-fe0997a.jpg","Glass-and-bottle-of-milk-fe0997a.jpg"]'>
         <img
           src="Glass-and-bottle-of-milk-fe0997a.jpg"
           height="100"
@@ -292,7 +292,7 @@
           <button class="add-to-cart">أضف إلى السلة</button>
         </div>
 
-        <div class="item" data-name="كيك عيد الميلاد" data-price-id="birthday_cake" data-price="">
+        <div class="item" data-name="كيك عيد الميلاد" data-price-id="birthday_cake" data-price="" data-custom="cake_size_price">
           <img
             src="Vanilla-Birthday-Cake-18-1200x1480.jpg"
             height="100"
@@ -394,9 +394,10 @@
         </div>
       </div>
     </div>
+    <div id="contactUs">
 <h2 style="text-align: center;">تواصل معنا</h2>
-        <div class="contact-us">
-      
+    </div>        
+      <div class="contact-us">
       <a
         href="https://www.facebook.com"
       >
@@ -420,6 +421,14 @@
       </a>
     </div>
     </div>
+    <br/>
+    <div class="footer">
+      <p>site Made by \ inquire</p>
+      <a href="mailto: pw.privateworks@gmail.com">.PRIVATE WORKS org</a>
+    <br/>
+    <br/>
+      <p>&copy;2026 all rights reserved</p>
+    </div>
 
     <div id="option-overlay" class="modal-overlay" aria-hidden="true">
       <div class="modal" role="dialog" aria-modal="true" id="option-modal">
@@ -431,6 +440,13 @@
         </div>
       </div>
     </div>
+
+   <div id="product-popup" class="popup">
+       <div class="popup-content">
+         <span id="close-popup">&times;</span>
+         <div id="popup-images"></div>
+     </div>
+   </div>
 
     <script src="script.js?v=2"></script>
 

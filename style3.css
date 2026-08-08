@@ -160,6 +160,19 @@ body {
   border-radius: 50%;
 }
 
+.footer{
+  background-color: #9dcae4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+  text-align: center;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
 @media screen and (max-width: 450px) {
   body {
     padding: 12px 12px 24px;
